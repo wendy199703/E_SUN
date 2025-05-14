@@ -1,0 +1,83 @@
+﻿@model IEnumerable<E_SUN.Models.ViewModel.LikeListModel>
+
+@{
+    ViewData["Title"] = "喜好紀錄";
+}
+
+<h1>喜好紀錄</h1>
+
+<p>
+    <a asp-action="Create">新增訂單</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                使用者名稱
+            </th>
+            <th>
+                使用者ID
+            </th>
+            <th>
+                使用者電子郵件
+            </th>
+            <th>
+                扣款帳號
+            </th>
+            <th>
+                購買數量
+            </th>
+            <th>
+                預計扣款總金額
+            </th>
+            <th>
+                總手續費用
+            </th>
+            <th>
+                創建時間
+            </th>
+            <th>
+                更新時間
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@{
+    foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderCount)
+            </td>
+            <td>
+               @($"{item.OrderPrice:N0}") 元
+            </td>
+            <td>
+              @($"{item.OrderFee:N0}") 元
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderCreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderUpdateDate)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.UserId">查詢明細</a> |
+                <a asp-action="Delete" asp-route-id="@item.SN">刪除</a>
+            </td>
+        </tr>
+}}
+    </tbody>
+</table>

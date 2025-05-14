@@ -1,0 +1,57 @@
+﻿@model E_SUN.Models.LikeListDetail
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>新增</h1>
+
+<h4>LikeListDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
+            <div class="form-group">
+                <label asp-for="SubNo" class="control-label">排序</label>
+                <input asp-for="SubNo" class="form-control" />
+                <span asp-validation-for="SubNo" class="text-danger"></span>
+            </div>
+            @{
+                E_SUN_BUYContext context = new E_SUN_BUYContext();
+                ViewBag.ProductList = context.Products
+                .Select(p => new SelectListItem { Value = p.No.ToString(), Text = p.ProductName })
+                .ToList();
+
+            }
+            <div class="form-group">
+                <label asp-for="ProductNo" class="control-label">商品</label>
+                <select asp-for="ProductNo" asp-items="ViewBag.ProductList" class="form-control">
+                    <option value="">請選擇產品編號</option>
+                </select>
+                <span asp-validation-for="ProductNo" class="text-danger"></span>
+            </div>
+           @*  <div class="form-group">
+                <label asp-for="Fee" class="control-label">手續費</label>
+                <input asp-for="Fee" class="form-control" />
+                <span asp-validation-for="Fee" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="ProductCount" class="control-label">數量</label>
+                <input asp-for="ProductCount" class="form-control" />
+                <span asp-validation-for="ProductCount" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

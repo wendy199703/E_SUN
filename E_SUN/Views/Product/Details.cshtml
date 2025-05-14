@@ -1,0 +1,75 @@
+﻿@model IEnumerable<E_SUN.Models.ViewModel.LikeListDetailModel>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>明細</h1>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    序號
+                </th>
+                <th>
+                    商品名稱
+                </th>
+                <th>
+                    商品價格
+                </th>
+                <th>
+                    商品手續費率
+                </th>
+                <th>
+                    購買數量
+                </th>
+                <th>
+                    扣款總金額
+                </th>
+                <th>
+                    手續費用
+                </th>
+               <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @($"{item.Price:N0}") 元
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FeeRate)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductCount)
+                        </td>
+                        <td>
+                            @($"{item.Price * item.ProductCount:N0}") 元
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fee)
+                        </td>  
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.SN" asp-route-subno="@item.SubNo">編輯</a> |
+                            <a asp-action="DeleteDetail" asp-route-id="@item.SN" asp-route-subno="@item.SubNo">刪除</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div>    
+    <a asp-action="List">Back to List</a>
+</div>
